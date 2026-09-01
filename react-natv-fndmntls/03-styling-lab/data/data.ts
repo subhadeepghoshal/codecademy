@@ -23,6 +23,7 @@ export interface Featured {
   description: string;
   caretaker: string;
   source: string;
+  friend: boolean;
 }
 
 export interface Data {

@@ -9,8 +9,13 @@ type PostProps = {
 };
 
 const Post = (props: PostProps) => (
-  // Add additional styling to this View
-  <View>
+  <View
+    style={[
+      styles.layout,
+      props.friend ? styles.friendBackground : styles.defaultBackground,
+      styles.shadow,
+    ]}
+  >
     <Image style={styles.image} source={{ uri: props.image }} />
     <View style={styles.content}>
       <Text style={styles.title}>{props.title}</Text>
@@ -27,8 +32,12 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     /* Add additional styling below */
   },
-  friendBackground: {},
-  defaultBackground: {},
+  friendBackground: {
+    backgroundColor: "#FFF7ED",
+  },
+  defaultBackground: {
+    backgroundColor: "#FFFFFF",
+  },
   shadow: {
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -49,11 +58,14 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 6,
-    /* Add additional styling below */
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#1C1917",
   },
   description: {
     lineHeight: 20,
-    /* Add additional styling below */
+    fontSize: 14,
+    color: "#78716C",
   },
 });
 
