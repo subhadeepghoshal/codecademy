@@ -54,7 +54,7 @@ export const globalStyles = StyleSheet.create({
 
   // Task 5: Update the styling of all input elements
   input: {
-    height: 40,
+    height: 44,
   },
   pressed: {
     transform: [{ scale: 0.96 }],

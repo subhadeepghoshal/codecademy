@@ -11,6 +11,7 @@ export function AppButton({ label, ...rest }: AppButton) {
     <Pressable
       style={({ pressed }) => [globalStyles.button, rest.disabled && globalStyles.disabled, { width: "100%" }, pressed && globalStyles.pressed]}
       {...rest}
+      hitSlop={{top:5,bottom:5}}
     >
       <Text style={globalStyles.buttonText}>{label}</Text>
     </Pressable>
