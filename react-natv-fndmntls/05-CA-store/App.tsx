@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Pressable, FlatList, StyleSheet, Modal } from 'react-native';
 
 import { SearchBar } from './components/SearchBar';
 import { FilterSwitch } from './components/FilterSwitch';
@@ -44,14 +44,20 @@ export default function App(){
   return (
     <View style={styles.container}>
       {/* todo: MODAL wrap in modal*/}
-      <>
-        {/* <View style={styles.modalContainer}>
+      <Modal
+        visible={showCartSummary}
+        onRequestClose={() => setShowCartSummary(false)}
+        animationType="slide"
+        transparent
+      >
+        <View style={styles.modalContainer}>
           <View style={styles.summaryContainer}>
             <View style={styles.summary}>
+              <CartSummary items={addedItems} onClear={console.log} onClose={() => setShowCartSummary(false)} />
             </View>
           </View>
-        </View> */}
-      </>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <Text style={styles.headerText}>Codecademy Store</Text>
       </View>
@@ -67,7 +73,14 @@ export default function App(){
           setShowOnlySale={setShowOnlySale}
         />
 
-        {/* todo: PRESSABLE view cart */}
+        <Pressable
+          style={[styles.summaryButton, addedItems.length === 0 && styles.disabled]}
+          disabled={addedItems.length === 0}
+          onPress={() => setShowCartSummary(true)}
+          hitSlop={{ top: 5, bottom: 5 }}
+        >
+          <Text style={styles.buttonText}>View Cart</Text>
+        </Pressable>
 
         <FlatList
           data={filteredProducts}
@@ -113,7 +126,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
-    minHeight: 35, // todo: update using hitslop
+    minHeight: 35,
     justifyContent: 'center',
     marginBottom: 20
   },
@@ -129,7 +142,8 @@ const styles = StyleSheet.create({
     height: 500
   },
   modalContainer: {
-    // todo: MODAL center
+    flex: 1,
+    justifyContent: 'center',
     paddingHorizontal: 10
   },
   summaryContainer: {
