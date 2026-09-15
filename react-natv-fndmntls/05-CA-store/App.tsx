@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text, Pressable, FlatList, StyleSheet, Modal } from 'react-native';
+import { View, Text, Pressable, FlatList, StyleSheet, Modal, Alert } from 'react-native';
 
 import { SearchBar } from './components/SearchBar';
 import { FilterSwitch } from './components/FilterSwitch';
@@ -37,8 +37,20 @@ export default function App(){
   };
 
   function onClearCartHandler() {
-    // todo: "Alert" confirm clearing
-
+    Alert.alert(
+      'Empty Cart',
+      "Are you sure you want to empty your cart? You won’t be able to undo this.",
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Empty',
+          onPress: () => {
+            setAddedItems([]);
+            setShowCartSummary(false);
+          },
+        },
+      ]
+    );
   }
 
   return (
@@ -53,7 +65,7 @@ export default function App(){
         <View style={styles.modalContainer}>
           <View style={styles.summaryContainer}>
             <View style={styles.summary}>
-              <CartSummary items={addedItems} onClear={console.log} onClose={() => setShowCartSummary(false)} />
+              <CartSummary items={addedItems} onClear={()=>onClearCartHandler()} onClose={() => setShowCartSummary(false)} />
             </View>
           </View>
         </View>
