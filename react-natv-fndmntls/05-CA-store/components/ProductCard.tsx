@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, Pressable, ActivityIndicator, StyleSheet } from 'react-native';
 import { ProductCardProps } from '../types/index';
 import { logger } from '../utils/logger';
 
@@ -11,9 +11,20 @@ export function ProductCard({ product, isLoading, isAdded, onAddToCart }: Produc
       <Text style={styles.productPrice}>${product.price}</Text>
       {product.onSale && <Text style={styles.saleTag}>SALE</Text>}
 
-      {/* todo: PRESSABLE add cart button*/}
-      {/* todo: ACTIVITY INDICATOR conditionally render activity indicator */}
-      
+      <Pressable
+        style={styles.button}
+        disabled={isLoading || isAdded}
+        onPress={() => {
+          logger.logCartItem(product);
+          onAddToCart(product.id);
+        }}
+      >
+        {isLoading ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <Text style={styles.buttonText}>{isAdded ? 'Added' : 'Add to Cart'}</Text>
+        )}
+      </Pressable>
     </View>
   )
 }
