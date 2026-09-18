@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 
 type Thought = {
   id: string;
@@ -13,6 +14,8 @@ const sampleThoughts: Thought[] = [
 ];
 
 export default function Thoughts() {
+  const navigation = useNavigation()
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {sampleThoughts.map(({ id, text }) => {
@@ -23,6 +26,9 @@ export default function Thoughts() {
           </View>
         );
       })}
+      <Pressable accessibilityRole="button" style={styles.button} onPress={()=>navigation.goBack()}>
+        <Text style={styles.buttonText}>Back</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -40,5 +46,17 @@ const styles = StyleSheet.create({
   thoughtPreview: {
     fontSize: 16,
     color: '#333',
+  },
+    button: {
+    backgroundColor: '#007bff',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    alignSelf: "center"
   },
 });

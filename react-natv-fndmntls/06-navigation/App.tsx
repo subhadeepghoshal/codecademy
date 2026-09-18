@@ -1,10 +1,8 @@
-import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './components/Home';
 import FAQ from './components/FAQ';
 import Thoughts from './components/Thoughts';
-import { Text } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
 
 export type NativeStackParamList = {
   Home: undefined,
@@ -12,16 +10,19 @@ export type NativeStackParamList = {
   Thoughts: undefined
 }
 
-const Tab = createBottomTabNavigator<NativeStackParamList>();
+const Stack = createNativeStackNavigator<NativeStackParamList>()
+
+
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={Home} options={{tabBarLabel:'Home'}}/>
-        <Tab.Screen name="FAQ" component={FAQ} options={{tabBarLabel:'Q & A'}}/>
-        <Tab.Screen name="Thoughts" component={Thoughts} options={{tabBarLabel:'My Thoughts'}}/>
-      </Tab.Navigator>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} options={{ headerTitle: "Home"}}/>
+        <Stack.Screen name="FAQ" component={FAQ} options={{ headerTitle: "Q & A"}}/>
+        <Stack.Screen name="Thoughts" component={Thoughts} options={{ headerTitle: "My Thoughts"}}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
