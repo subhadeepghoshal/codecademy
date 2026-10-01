@@ -1,29 +1,29 @@
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { NativeStackParamList } from '../App';
+import { thoughts } from '../data';
 
-type Thought = {
-  id: string;
-  text: string;
-};
-
-const sampleThoughts: Thought[] = [
-  { id: '1', text: 'Today I learned about React Native hooks and how they simplify state management.' },
-  { id: '2', text: 'Just had the best coffee ever at the new café downtown!' },
-  { id: '3', text: 'Thinking about starting a mini-project on TypeScript and mobile apps.' },
-];
+type ThoughtsProps = NativeStackNavigationProp<NativeStackParamList, 'Thoughts'>;
 
 export default function Thoughts() {
-  const navigation = useNavigation()
+  const navigation = useNavigation<ThoughtsProps>()
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {sampleThoughts.map(({ id, text }) => {
+      {thoughts.map(({ id, text }) => {
         const preview = text.split(' ').slice(0, 5).join(' ') + '...';
         return (
-          <View key={id} style={styles.thoughtBlock}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={preview}
+            key={id}
+            style={styles.thoughtBlock}
+            onPress={() => navigation.navigate('Thought', { id })}
+          >
             <Text style={styles.thoughtPreview}>{preview}</Text>
-          </View>
+          </Pressable>
         );
       })}
       <Pressable accessibilityRole="button" style={styles.button} onPress={()=>navigation.goBack()}>
