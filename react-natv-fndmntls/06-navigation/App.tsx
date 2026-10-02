@@ -1,44 +1,43 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NavigationContainer,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
 import Home from "./components/Home";
 import FAQ from "./components/FAQ";
-import Thoughts from "./components/Thoughts";
-import Thought from "./components/Thought";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  StackParamList,
+  ThoughtsNavigator,
+} from "./components/ThoughtsNavigatior";
 
-export type NativeStackParamList = {
+export type BottomTabsParamList = {
   Home: undefined;
   FAQ: undefined;
-  Thoughts: undefined;
-  Thought: { id: string };
+  ThoughtsNavigator: NavigatorScreenParams<StackParamList>;
 };
 
-const Stack = createNativeStackNavigator<NativeStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabsParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
+      <Tab.Navigator initialRouteName="Home" screenOptions={{headerShown:false}}>
+        <Tab.Screen
           name="Home"
           component={Home}
-          options={{ headerTitle: "Home" }}
+          options={{ tabBarLabel: "Home" }}
         />
-        <Stack.Screen
+        <Tab.Screen
           name="FAQ"
           component={FAQ}
-          options={{ headerTitle: "Q & A" }}
+          options={{ tabBarLabel: "Q & A" }}
         />
-        <Stack.Screen
-          name="Thoughts"
-          component={Thoughts}
-          options={{ headerTitle: "My Thoughts" }}
+        <Tab.Screen
+          name="ThoughtsNavigator"
+          component={ThoughtsNavigator}
+          options={{ tabBarLabel: "My Thoughts" }}
         />
-        <Stack.Screen
-          name="Thought"
-          component={Thought}
-          options={{ headerTitle: "Quick Thought" }}
-        />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }

@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { NativeStackParamList } from '../App';
+import { StackParamList } from './ThoughtsNavigatior';
 import { thoughts } from '../data';
 
-type ThoughtsProps = NativeStackNavigationProp<NativeStackParamList, 'Thoughts'>;
+type ThoughtsProps = NativeStackNavigationProp<StackParamList, 'Thoughts'>;
 
 export default function Thoughts() {
   const navigation = useNavigation<ThoughtsProps>()

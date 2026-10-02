@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { NativeStackParamList } from '../App';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BottomTabsParamList } from '../App';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
-type HomeProps = NativeStackScreenProps<NativeStackParamList>;
+type FAQProps = BottomTabScreenProps<BottomTabsParamList, 'FAQ'>;
 
-export default function FAQ({ navigation }: HomeProps) {
+export default function FAQ({ navigation }: FAQProps) {
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}
@@ -37,7 +37,9 @@ export default function FAQ({ navigation }: HomeProps) {
       <Pressable
         accessibilityRole="button"
         style={styles.button}
-        onPress={() => navigation.navigate('Thoughts')}
+        onPress={() =>
+          navigation.navigate('ThoughtsNavigator', { screen: 'Thoughts' })
+        }
       >
         <Text style={styles.buttonText}>View Thoughts</Text>
       </Pressable>
