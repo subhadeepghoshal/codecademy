@@ -1,4 +1,4 @@
-# Refactor 07-nav-expo from React Navigation to Expo Router
+  # Refactor 07-nav-expo from React Navigation to Expo Router
 
 **Status:** plan only — no code changed yet.
 **Target:** Expo SDK 57 (`expo@57.0.23`), `expo-router@57.x`.
