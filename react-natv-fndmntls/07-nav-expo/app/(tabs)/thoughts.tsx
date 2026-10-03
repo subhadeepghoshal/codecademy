@@ -38,16 +38,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
-    button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    alignSelf: "center"
-  },
 });
