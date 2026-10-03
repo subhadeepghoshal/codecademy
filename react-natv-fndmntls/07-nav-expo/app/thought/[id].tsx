@@ -1,19 +1,19 @@
 import React from 'react'
 import { Text, StyleSheet, ScrollView, View } from 'react-native'
-import { thoughts } from '../data';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { StackParamList } from './ThoughtsNavigatior';
+import { thoughts } from '../../data';
+import { useLocalSearchParams } from 'expo-router';
 
-
-type ThoughtProp = RouteProp<StackParamList, "Thought">
 export default function Thought() {
-  const route = useRoute<ThoughtProp>()
-  const id = route.params.id
+  const { id } = useLocalSearchParams<{ id: string }>()
 
   const thought = thoughts.find(t => t.id === id)
 
   if(!thought) {
-    return <View>No thought!</View>
+    return (
+      <View>
+        <Text>No thought!</Text>
+      </View>
+    )
   }
 
   return (

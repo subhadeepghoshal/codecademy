@@ -1,27 +1,17 @@
-
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { BottomTabsParamList } from '../App';
-import { useNavigation } from '@react-navigation/native';
-import { thoughts } from '../data';
-
-
-
-type HomeProps = BottomTabNavigationProp<BottomTabsParamList, "Home">
+import { useRouter } from 'expo-router';
+import { thoughts } from '../../data';
 
 function randomIndex(size: number) {
   return Math.floor(Math.random() * size)
 }
 export default function Home() {
-  const navigation = useNavigation<HomeProps>()
+  const router = useRouter()
   const randomThoughtId = thoughts[randomIndex(thoughts.length)].id
 
   function onPressRandomThoughtHandler() {
-    navigation.navigate("ThoughtsNavigator", { 
-      screen: "Thought", 
-      params: { id: randomThoughtId}
-    })
+    router.push(`/thought/${randomThoughtId}`)
   }
   return (
     <View style={styles.container}>

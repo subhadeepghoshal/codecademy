@@ -1,11 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
-import { BottomTabsParamList } from '../App';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { Link } from 'expo-router';
 
-type FAQProps = BottomTabScreenProps<BottomTabsParamList, 'FAQ'>;
-
-export default function FAQ({ navigation }: FAQProps) {
+export default function FAQ() {
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}
@@ -34,15 +31,11 @@ export default function FAQ({ navigation }: FAQProps) {
       </View>
       
 
-      <Pressable
-        accessibilityRole="button"
-        style={styles.button}
-        onPress={() =>
-          navigation.navigate('ThoughtsNavigator', { screen: 'Thoughts' })
-        }
-      >
-        <Text style={styles.buttonText}>View Thoughts</Text>
-      </Pressable>
+      <Link href="/thoughts" asChild>
+        <Pressable accessibilityRole="button" style={styles.button}>
+          <Text style={styles.buttonText}>View Thoughts</Text>
+        </Pressable>
+      </Link>
     </ScrollView>
   );
 }
