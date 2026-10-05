@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Link } from 'expo-router';
-import { thoughts } from '../../data';
+import { thoughts } from '../../../data';
 
 export default function Thoughts() {
   return (
@@ -9,7 +9,7 @@ export default function Thoughts() {
       {thoughts.map(({ id, text }) => {
         const preview = text.split(' ').slice(0, 5).join(' ') + '...';
         return (
-          <Link href={`/thought/${id}`} key={id} asChild>
+          <Link href={`/thoughts/${id}`} key={id} asChild>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={preview}

@@ -11,7 +11,7 @@ export default function Home() {
   const randomThoughtId = thoughts[randomIndex(thoughts.length)].id
 
   function onPressRandomThoughtHandler() {
-    router.push(`/thought/${randomThoughtId}`)
+    router.push(`/thoughts/${randomThoughtId}`)
   }
   return (
     <View style={styles.container}>

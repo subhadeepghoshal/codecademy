@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet, ScrollView, View } from 'react-native'
-import { thoughts } from '../../data';
+import { thoughts } from '../../../../data';
 import { useLocalSearchParams } from 'expo-router';
 
 export default function Thought() {
