@@ -5,7 +5,6 @@ import {
   NavigationContainer,
   NavigatorScreenParams,
 } from "@react-navigation/native";
-
 import { SettingsScreen } from "./components/SettingsScreen";
 import { ProfileScreen } from "./components/ProfileScreen";
 import { GoalsScreen } from "./components/GoalsScreen";
@@ -36,22 +35,23 @@ type RootTabParamList = {
   ProfileTab: NavigatorScreenParams<ProfileStackParamList>;
 };
 
-const ProgressStack = createNativeStackNavigator<ProgressStackParamList>();
-const WorkoutStack = createNativeStackNavigator<WorkoutStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
+const WorkoutStack = createNativeStackNavigator<WorkoutStackParamList>();
+const ProgressStack = createNativeStackNavigator<ProgressStackParamList>();
+const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
 
 const WorkoutsStackNavigator = () => {
   return (
     <WorkoutStack.Navigator>
       <WorkoutStack.Screen
-        name="WorkoutDetail"
-        component={WorkoutDetailScreen}
-        options={{ title: "Workout Details" }}
-      />
-      <WorkoutStack.Screen
         name="Workouts"
         component={WorkoutsScreen}
         options={{ title: "Workouts" }}
+      />
+      <WorkoutStack.Screen
+        name="WorkoutDetail"
+        component={WorkoutDetailScreen}
+        options={{ title: "Workout Details" }}
       />
     </WorkoutStack.Navigator>
   );
@@ -73,6 +73,24 @@ const ProgressStackNavigator = () => {
     </ProgressStack.Navigator>
   );
 };
+
+const ProfileStackNavigator = () => {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ title: "Profile" }}
+      />
+      <ProfileStack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ title: "Settings" }}
+      />
+    </ProfileStack.Navigator>
+  );
+};
+
 // Main App
 const App = () => {
   return (
@@ -96,6 +114,11 @@ const App = () => {
           component={ProgressStackNavigator}
           options={{ tabBarLabel: "Progress" }}
         />
+        <Tab.Screen
+          name="ProfileTab"
+          component={ProfileStackNavigator}
+          options={{ tabBarLabel: "Profile" }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -108,4 +131,5 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
 });
+
 export default App;
