@@ -21,7 +21,7 @@ export interface DataResult {
  * 3. Save successful responses for future offline access
  */
 export const fetchIceCreamFlavors = async (): Promise<DataResult> => {
-  const cachedData = await getCache<IceCreamFlavor[]>(CACHE_KEY);
+  const cachedData: IceCreamFlavor[] | null = await getCache(CACHE_KEY);
   const cachedTimestamp = await AsyncStorage.getItem(TIMESTAMP_KEY);
   
   if (cachedData) {
@@ -43,8 +43,9 @@ export const fetchIceCreamFlavors = async (): Promise<DataResult> => {
  */
 const fetchFromNetwork = async (): Promise<DataResult> => {
   // Use fetchWithRetry for robust network requests
+  const response = await fetchWithRetry(API_URL);
+  const apiData = await response.json();
 
-  
   if (!apiData.data || !apiData.data.flavors || !Array.isArray(apiData.data.flavors)) {
     throw new Error('Invalid API response format. Please try again.');
   }
@@ -85,7 +86,18 @@ const fetchAndUpdateCache = async (): Promise<void> => {
  * Loads data from cache only (no network request)
  */
 export const loadFromCache = async (): Promise<DataResult> => {
+  const cachedData: IceCreamFlavor[] | null = await getCache(CACHE_KEY);
+  const cachedTimestamp: string | null = await AsyncStorage.getItem(TIMESTAMP_KEY);
 
+  if (!cachedData || cachedData.length === 0) {
+    throw new Error('No cached data found');
+  }
+
+  return {
+    data: cachedData,
+    source: 'cache',
+    timestamp: cachedTimestamp ? new Date(cachedTimestamp).toLocaleString() : null
+  };
 };
 
 /**

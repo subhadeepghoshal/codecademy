@@ -1,7 +1,25 @@
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export const fetchWithRetry = async (url: string, retries = 3): Promise<Response> => {
-  
-  // add a loop here
-  
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url);
+
+      if (response.ok) {
+        return response;
+      }
+
+      throw new Error(getErrorMessage(response.status));
+    } catch (error) {
+      if (i === retries - 1) {
+        throw error;
+      }
+
+      // Wait longer before each retry: 1s, then 2s, then 4s...
+      await delay(2 ** i * 1000);
+    }
+  }
+
   throw new Error('Network error. Please check your connection and try again.');
 };
 
