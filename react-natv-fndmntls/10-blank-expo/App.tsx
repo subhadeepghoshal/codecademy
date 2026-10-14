@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, ScrollView, Platform, AppState } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Platform,
+  AppState,
+  ViewStyle,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import NativeButton from "./components/NativeButton"
 
@@ -172,6 +181,13 @@ export default function App() {
   );
 }
 
+// iOS and web draw depth with a shadow; Android uses the elevation API
+const cardShadow: ViewStyle = Platform.select({
+  ios: { boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.12)" },
+  android: { elevation: 3 },
+  default: { boxShadow: "0px 1px 4px rgba(0, 0, 0, 0.15)" },
+});
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -188,6 +204,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
+    fontSize: Platform.select({
+      ios: 34,
+      android: 28,
+      default: 32,
+    }),
+    fontWeight: Platform.select({
+      ios: "700" as const,
+      android: "500" as const,
+      default: "600" as const,
+    }),
     textAlign: "center",
     marginTop: 20,
     marginBottom: 20,
@@ -205,7 +231,14 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 15,
     marginBottom: 10,
+    borderRadius: Platform.select({ ios: 14, android: 8, default: 10 }),
+    ...cardShadow,
     borderLeftWidth: 4,
+    borderLeftColor: Platform.select({
+      ios: "#007AFF",
+      android: "#3F51B5",
+      default: "#4A90E2",
+    }),
   },
   featuresTitle: {
     fontSize: 16,
@@ -229,7 +262,9 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-
+    borderRadius: Platform.select({ ios: 10, android: 4, default: 6 }),
+    padding: Platform.select({ ios: 12, android: 14, default: 12 }),
+    borderWidth: Platform.select({ ios: 1, android: 2, default: 1 }),
     fontSize: 16,
     marginBottom: 15,
     borderColor: "#ddd",
@@ -238,7 +273,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 20,
     padding: 20,
-
+    borderRadius: Platform.select({ ios: 14, android: 8, default: 10 }),
+    ...cardShadow,
     alignItems: "center",
   },
   cityName: {
